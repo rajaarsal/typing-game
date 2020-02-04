@@ -2,14 +2,12 @@ import React, { useState, useEffect, useRef } from "react";
 import "./styles.css";
 
 const App = () => {
-  // const startTime = 3;
-  const [startTime, setStartTime] = useState(0);
-  const [timeRemaining, setTimeRemaining] = useState(0);
+  const startTime = 3;
+  const [timeRemaining, setTimeRemaining] = useState(startTime);
   const [isTimeRunning, setIsTimeRunning] = useState(false);
   const [totalWords, setTotalWords] = useState(0);
   const [text, setText] = useState("");
   const textBox = useRef(null);
-  const startTimeInput = useRef(null);
 
   const countDownTimer = () => {
     setTimeRemaining(prevState => prevState - 1);
@@ -25,13 +23,8 @@ const App = () => {
   };
 
   const textChange = e => {
-    const { value, name } = e.target;
-    console.log(name);
-    if (name === "texArea") {
-      setText(value);
-    } else {
-      setStartTime(value);
-    }
+    const { value } = e.target;
+    setText(value);
   };
 
   const wordCount = () => {
@@ -61,16 +54,6 @@ const App = () => {
         disabled={!isTimeRunning}
         value={text}
       />
-      <h1>
-        Set timming:{" "}
-        <input
-          name="startTime"
-          type="text"
-          value={startTime}
-          ref={startTimeInput}
-          onChange={textChange}
-        />
-      </h1>
       <h1>Time Remaining: {timeRemaining}</h1>
       <button onClick={startGame} disabled={isTimeRunning}>
         Start Game
